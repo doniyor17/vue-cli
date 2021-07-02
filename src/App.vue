@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="container">
-            <Header :title="title" @changeTitle="updateTitle($event)" />
+            <Header :title="title" />
             <Content :users="users" />
             <Footer :title="title" />
         </div>
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-Content;
 import Header from './components/Header.vue';
 import Content from './components/Content.vue';
 import Footer from './components/Footer.vue';
@@ -30,19 +29,19 @@ export default {
                 job: 'Programmer',
             },
             {
-                id: 1,
+                id: 2,
                 name: 'Salohiddin',
                 show: false,
                 job: 'Programmer',
             },
             {
-                id: 1,
+                id: 3,
                 name: 'Muhammad',
                 show: false,
                 job: 'Designer',
             },
             {
-                id: 1,
+                id: 4,
                 name: 'Akmal',
                 show: false,
                 job: 'Designer',

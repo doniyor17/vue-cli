@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { bus } from '../main';
 export default {
     name: 'Header',
     props: {
@@ -12,6 +13,11 @@ export default {
             type: String,
             required: true,
         },
+    },
+    created() {
+        bus.$on('changeTitle', (data) => {
+            this.title = data;
+        });
     },
 };
 </script>

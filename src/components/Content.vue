@@ -1,27 +1,34 @@
 <template>
     <div class="content">
-        <ul class="users-list">
-            <li
-                class="user-item"
-                v-for="user in users"
-                :key="user.id"
-                @click="user.show = !user.show"
-            >
-                <h2>{{ user.name }}</h2>
-                <h3 v-show="user.show">Profession: {{ user.job }}</h3>
+        <loading :spinner="spinner" />
+        <!-- Vue props in using -->
+        <ul class="posts-list">
+            <li class="post-item" v-for="post in posts" :key="post.id">
+                <h2>{{ post.title | shortTitle }}</h2>
+                <!-- Vue filters in using -->
+                <p>{{ post.body | shortBody }}</p>
+                <!-- Vue filters in using -->
             </li>
         </ul>
     </div>
 </template>
 
 <script>
+import Loading from './Loading.vue';
 export default {
+    components: { Loading },
     name: 'Content',
-    props: {
-        users: {
-            type: Array,
-            required: true,
-        },
+    data: () => ({
+        posts: [],
+        spinner: true,
+    }),
+    async created() {
+        const data = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const posts = await data.json();
+        this.posts = posts;
+        if (this.posts && this.posts !== []) {
+            this.spinner = false;
+        }
     },
 };
 </script>
@@ -30,12 +37,12 @@ export default {
 .content {
     margin-top: 60px;
 }
-.users-list {
+.posts-list {
     width: 600px;
     margin: 10px auto;
     list-style-type: none;
 }
-.user-item {
+.post-item {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #000;

@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { bus } from '../main';
 export default {
     name: 'Header',
     props: {
@@ -15,7 +16,9 @@ export default {
     },
     methods: {
         changeTitle() {
-            this.$emit('changeTitle', 'Vue Forums');
+            // this.$emit('changeTitle', 'Vue Forums'); //|> send emit event to parent component
+            this.title = 'Vue Forums';
+            bus.$emit('changeTitle', 'Vue Forums'); // |> This global event declaration in main.js file
         },
     },
 };
