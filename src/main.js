@@ -1,7 +1,13 @@
 import Vue from 'vue';
+import VueResource from 'vue-resource';
 import App from './App.vue';
+import router from './routes/index';
+
 Vue.config.productionTip = false;
-export const bus = new Vue();
+
+Vue.use(VueResource);
+
 new Vue({
+    router,
     render: (h) => h(App),
 }).$mount('#app');

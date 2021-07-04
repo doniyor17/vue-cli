@@ -14,11 +14,6 @@ export default {
             required: true,
         },
     },
-    created() {
-        bus.$on('changeTitle', (data) => {
-            this.title = data;
-        });
-    },
 };
 </script>
 

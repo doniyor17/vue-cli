@@ -1,33 +1,10 @@
 <template>
-    <div class="loading" v-if="loading">
+    <div class="loading">
         <div class="spinner">
             <div class="small-wrapper"></div>
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    data() {
-        return {
-            loading: true,
-        };
-    },
-    props: {
-        spinner: {
-            type: Boolean,
-            required: true,
-        },
-    },
-    mounted() {
-        document.onreadystatechange = () => {
-            if (document.readyState == 'complete') {
-                this.loading = !this.spinner;
-            }
-        };
-    },
-};
-</script>
 
 <style scoped>
 .loading {

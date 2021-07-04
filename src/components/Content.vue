@@ -1,7 +1,6 @@
 <template>
     <div class="content">
-        <loading :spinner="spinner" />
-        <!-- Vue props in using -->
+        <loading v-if="spinner" />
         <div class="search-box">
             <input
                 v-model="search"
@@ -14,38 +13,57 @@
             <li
                 v-rainbow
                 class="post-item"
-                v-for="post in filteredBlogs"
-                :key="post.id"
+                v-for="blog in filteredBlogs"
+                :key="blog.id"
             >
-                <h2 v-highlight>{{ post.title | uppercase }}</h2>
-                <!-- Vue filters in using -->
-                <p>{{ post.body | shortBody }}</p>
-                <!-- Vue filters in using -->
+                <router-link :to="'blog/' + blog.id">
+                    <h2 v-highlight>{{ blog.title | uppercase }}</h2>
+                </router-link>
+                <p>{{ blog.body | shortBody }}</p>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-import filteredBlogs from '../mixins/searchBlogs';
 import Loading from './Loading.vue';
 export default {
     components: { Loading },
     name: 'Content',
     data: () => ({
-        posts: [],
-        search: '',
+        blogs: [],
         spinner: true,
+        search: '',
+        id: null,
     }),
     async created() {
-        const data = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const posts = await data.json();
-        this.posts = posts;
-        if (this.posts && this.posts !== []) {
-            this.spinner = false;
+        try {
+            const posts = await this.$http.get(
+                'https://vue-blog-app-3ffb5-default-rtdb.asia-southeast1.firebasedatabase.app/blogs.json'
+            );
+            const datas = await posts.json();
+            let blogs = [];
+            for (let key in datas) {
+                datas[key].id = key;
+                blogs.push(datas[key]);
+            }
+            if (blogs && this.blogs && this.blogs !== []) {
+                this.spinner = false;
+                this.blogs = blogs;
+            }
+        } catch (e) {
+            console.log(e);
         }
     },
-    computed: {},
+    computed: {
+        filteredBlogs: function() {
+            return this.blogs.filter((blog) => {
+                return blog.title
+                    .toLowerCase()
+                    .match(this.search.toLowerCase());
+            });
+        },
+    },
     filters: {
         uppercase: (val) => {
             return val.slice(0, 50).toUpperCase() + '...';
@@ -57,36 +75,20 @@ export default {
     directives: {
         highlight: {
             bind(el, binding, vnode) {
-                el.style.color =
-                    '#' +
-                    Math.random()
-                        .toString(16)
-                        .slice(2, 8);
-                el.style.background =
-                    '#' +
-                    Math.random()
-                        .toString(16)
-                        .slice(2, 8);
+                el.style.color = '#333';
+                el.style.background = '#ddd';
             },
         },
         rainbow: {
             bind(el, binding, vnode) {
-                el.style.background =
-                    '#' +
-                    Math.random()
-                        .toString(16)
-                        .slice(2, 8);
+                el.style.background = '#fddffd';
             },
         },
     },
-    mixins: [filteredBlogs],
 };
 </script>
 
 <style scoped>
-.content {
-    margin-top: 60px;
-}
 .search-box {
     width: 600px;
     margin: 0px auto 10px !important;
