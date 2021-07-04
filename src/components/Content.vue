@@ -1,23 +1,25 @@
 <template>
-    <div class="content">
+    <div class="content row">
         <loading v-if="spinner" />
-        <div class="search-box">
+        <div class="search-box col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <input
                 v-model="search"
-                class="search"
+                class="search form-control mb-5 py-4"
                 type="text"
                 placeholder="Search blog..."
             />
         </div>
-        <ul class="posts-list">
+        <ul class="posts-list m-0 p-0">
             <li
                 v-rainbow
-                class="post-item"
+                class="post-item p-3 mb-3"
                 v-for="blog in filteredBlogs"
                 :key="blog.id"
             >
-                <router-link :to="'blog/' + blog.id">
-                    <h2 v-highlight>{{ blog.title | uppercase }}</h2>
+                <router-link class="text-center" :to="'blog/' + blog.id">
+                    <h2 v-highlight class="py-2">
+                        {{ blog.title | uppercase }}
+                    </h2>
                 </router-link>
                 <p>{{ blog.body | shortBody }}</p>
             </li>
@@ -76,7 +78,7 @@ export default {
         highlight: {
             bind(el, binding, vnode) {
                 el.style.color = '#333';
-                el.style.background = '#ddd';
+                el.style.background = 'rgb(200, 159, 192)';
             },
         },
         rainbow: {
@@ -89,24 +91,18 @@ export default {
 </script>
 
 <style scoped>
-.search-box {
-    width: 600px;
-    margin: 0px auto 10px !important;
-}
-.search {
-    width: 600px;
-    padding: 10px 15px;
-    font-size: 20px;
+.content {
+    margin: 0;
+    padding: 0;
 }
 .posts-list {
-    width: 600px;
-    margin: 10px auto;
-    list-style-type: none;
+    width: 100% !important;
+    margin: 30px auto 0;
 }
 .post-item {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #000;
-    background-color: rgb(243, 140, 140);
+    border: 1px solid #444;
+    box-shadow: 0 0 5px #000;
+    list-style-type: none;
+    background-color: #fff !important;
 }
 </style>

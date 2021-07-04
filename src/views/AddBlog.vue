@@ -1,45 +1,63 @@
 <template>
-    <div class="container">
+    <div>
         <Header :title="title" />
-        <div class="form">
-            <loading v-if="spinner" />
-            <form-blog>
-                <h2 class="form-heading" slot="form-heading">
-                    Add Blog
-                </h2>
-                <div class="form-inputs" slot="form-inputs">
-                    <input
-                        class="title"
-                        type="text"
-                        placeholder="Title..."
-                        v-model="blogTitle"
-                    />
-                    <input
-                        class="body"
-                        type="text"
-                        placeholder="Body..."
-                        v-model="blogBody"
-                    />
+        <div class="container">
+            <div class="row">
+                <div
+                    class="form col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                >
+                    <loading v-if="spinner" />
+                    <form-blog>
+                        <h2
+                            class="form-heading col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                            slot="form-heading"
+                        >
+                            Add Blog
+                        </h2>
+                        <div
+                            class="form-inputs col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                            slot="form-inputs"
+                        >
+                            <input
+                                class="title form-control"
+                                type="text"
+                                placeholder="Title..."
+                                v-model="blogTitle"
+                            />
+                            <input
+                                class="body form-control"
+                                type="text"
+                                placeholder="Body..."
+                                v-model="blogBody"
+                            />
+                        </div>
+                        <div
+                            class="form-controls col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                            slot="form-controls"
+                        >
+                            <input
+                                @click="submitBlog"
+                                class="submit btn btn-primary"
+                                type="submit"
+                                value="Add"
+                            />
+                            <input
+                                @click="resetBlog"
+                                class="reset btn btn-danger"
+                                type="reset"
+                                value="Cancel"
+                            />
+                        </div>
+                        <div
+                            class="result mt-5 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                            slot="form-result"
+                        >
+                            <h3 class="text-title">{{ blogTitle }}</h3>
+                            <p class="text-body">{{ blogBody }}</p>
+                        </div>
+                    </form-blog>
                 </div>
-                <div class="form-controls" slot="form-controls">
-                    <input
-                        @click="submitBlog"
-                        class="submit"
-                        type="submit"
-                        value="Add"
-                    />
-                    <input
-                        @click="resetBlog"
-                        class="reset"
-                        type="reset"
-                        value="Cancel"
-                    />
-                </div>
-                <div class="result" slot="form-result">
-                    <h3 class="text-title">{{ blogTitle }}</h3>
-                    <p class="text-body">{{ blogBody }}</p>
-                </div>
-            </form-blog>
+            </div>
         </div>
     </div>
 </template>
@@ -139,17 +157,9 @@ export default {
 }
 .submit,
 .reset {
-    padding: 10px 15px;
     border-radius: 7px;
-    font-size: 14px;
-    outline: none;
-    color: #fff;
 }
 .submit {
-    background-color: rgb(75, 107, 250);
     margin-left: 15px;
-}
-.reset {
-    background-color: rgb(102, 84, 63);
 }
 </style>

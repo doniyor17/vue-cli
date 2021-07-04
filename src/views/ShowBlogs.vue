@@ -1,7 +1,9 @@
 <template>
-    <div class="container">
+    <div class="all-blogs">
         <Header :title="title" />
-        <Content />
+        <div class="container">
+            <Content />
+        </div>
         <Footer :title="title" />
     </div>
 </template>

@@ -14,9 +14,4 @@ export default {
 body {
     font-family: Arial, serif;
 }
-.container {
-    width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
 </style>
